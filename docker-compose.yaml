@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  selenium-hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"  # Expose Selenium Grid Hub on port 4444
+	  environment:
+	        - GRID_TIMEOUT=60000  # Set the timeout to 60 seconds
+	      command: ["-timeout", "60000"]
+    networks:
+      - selenium-grid
+
+  selenium-node-chrome:
+    image: selenium/node-chrome:latest
+    container_name: selenium-node-chrome
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=5555
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=5555
+    networks:
+      - selenium-grid
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - "5900:5900"  # Optional for VNC access
+
+networks:
+  selenium-grid:
+    driver: bridge

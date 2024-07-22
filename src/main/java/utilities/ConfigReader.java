@@ -33,8 +33,16 @@ public class ConfigReader {
         return properties.getProperty("baseUrl");
     }
     
-    public String getProperty(String key) {
-        return properties.getProperty(key);
+    public String getUrl() {
+        return properties.getProperty("url");
+    }
+    
+    public String getEmail() {
+    	return properties.getProperty("trelloEmail");
+    }
+    
+    public String getPassword() {
+    	return properties.getProperty("trelloPassword");
     }
 
 }

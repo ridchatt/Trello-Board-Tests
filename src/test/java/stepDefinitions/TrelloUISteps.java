@@ -3,10 +3,8 @@ package stepDefinitions;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -16,6 +14,7 @@ import io.cucumber.java.en.When;
 import pages.BoardPage;
 import pages.DashboardPage;
 import pages.LoginPage;
+import utilities.ConfigReader;
 import pages.HomePage;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -27,6 +26,7 @@ public class TrelloUISteps {
     DashboardPage dashboardPage;
     HomePage homePage;
     BoardPage boardPage;
+    ConfigReader configReader;
     
     @Before("@ui")
     public void browserSetup() {
@@ -36,7 +36,10 @@ public class TrelloUISteps {
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
     	driver.manage().window().maximize();
     	
+    	configReader = new ConfigReader();
+    	
     }
+    
     
     @After("@ui")
     public void tearDown() {
@@ -44,29 +47,19 @@ public class TrelloUISteps {
     	driver.quit();
     }
     
-    /*@Given("user launches browser")
-	public void user_launches_browser() {
-    	
-    	System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/Drivers/chromedriver.exe");
-    	driver = new ChromeDriver();
-    	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-    	driver.manage().window().maximize();
-        //driver.get("https://trello.com/login");
-    	loginPage = new LoginPage(driver);
-	}*/
+    
 	
     @When("user is on login page")
 	public void user_is_on_login_page() {
     	loginPage = new LoginPage(driver);
-		driver.get("https://trello.com");
+    	driver.get(configReader.getUrl());
 	    
 	}
     
-	@Then("user enters {string} and {string}")
-    public void user_enters_username_and_password(String email, String password) {
-	    loginPage.enterEmail(email);
-	    loginPage.enterPassword(password);
+	@Then("user enters credentials")
+    public void user_enters_credentials() {
+        loginPage.enterEmail(configReader.getEmail());
+        loginPage.enterPassword(configReader.getPassword());
 	}
 
 	@And("clicks on login button")
@@ -93,7 +86,7 @@ public class TrelloUISteps {
 	}
 	
 	@When("user clicks on create new board button")
-    public void user_clicks_on_create_new_board_button() {
+    public void user_clicks_on_create_new_board_button() throws InterruptedException {
 		homePage = new HomePage(driver);
 		homePage.clickCreateNewBoard();
     }
@@ -140,14 +133,8 @@ public class TrelloUISteps {
         assertThat("Title does not contain the expected text.", actualTitle, containsString(partialTitle));
     }
 	
-	/*@Then("user closes the browser")
-	public void user_closes_the_browser() {
-		driver.close();
-	    driver.quit();
-	}*/
-
 	@Given("user clicks on {string} board")
-	public void user_clicks_on(String boardName) {
+	public void user_clicks_on(String boardName) throws InterruptedException {
 		boardPage = new BoardPage(driver);
 	    boardPage.clickBoardByName(boardName);
 	}

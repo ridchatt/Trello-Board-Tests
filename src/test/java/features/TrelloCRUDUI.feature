@@ -1,9 +1,9 @@
 Feature: Trello UI CRUD operations
 
 Background:
-		#Given user launches browser
+
     When user is on login page
-    Then user enters "riddhika.chatterjee0005@gmail.com" and "Srikanta2024"
+    Then user enters credentials
     And clicks on login button
     Then user verifies page title "Boards | Trello"
     Then user is navigated to home page

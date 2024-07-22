@@ -2,7 +2,6 @@ package api;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import utilities.ConfigReader;
 
 public class TrelloApiClient {
 	

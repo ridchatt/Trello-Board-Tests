@@ -1,12 +1,8 @@
 package pages;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utilities.WaitHelper;
 
 public class HomePage {
@@ -17,8 +13,6 @@ public class HomePage {
     private By createNewBoardButton = By.xpath("//span[text()='Create new board']");
     private By boardTitleField = By.cssSelector("input[data-testid='create-board-title-input']");
     private By createBoardButton = By.cssSelector("button[data-testid='create-board-submit-button']");
-    
-    //private By boardDeleteConfirmMessage = By.className("YEctMXs9uZbttS");
     private By boardDeleteConfirmMessage = By.xpath("//*[contains(text(), 'Board deleted')]");
     private By boardNameErrorMessage = By.className("lWu5grh2rIDIym");
 
@@ -27,7 +21,8 @@ public class HomePage {
         this.waithelper = new WaitHelper(driver);
     }
 
-    public void clickCreateNewBoard() {
+    public void clickCreateNewBoard() throws InterruptedException {
+    	Thread.sleep(2000);
     	waithelper.WaitForElement(createNewBoardButton, 30);
         driver.findElement(createNewBoardButton).click();
     }
@@ -38,11 +33,12 @@ public class HomePage {
     }
 
     public void clickCreateBoardButton() {
-    	waithelper.WaitForElement(createBoardButton, 30);
+    	waithelper.WaitForElement(createBoardButton, 40);
         driver.findElement(createBoardButton).click();
     }
     
     public String getBoardDeleteConfirmMessage() {
+    	waithelper.WaitForElement(boardDeleteConfirmMessage, 30);
         return driver.findElement(boardDeleteConfirmMessage).getText();
     }
     

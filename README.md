@@ -1,275 +1,217 @@
 # Trello Board CRUD Operations Testing
 
-This project aims to test the CRUD (Create, Read, Update, Delete) operations on Trello boards. It uses Maven for project management, Cucumber for behavior-driven development (BDD), and JUnit for running tests.
-
 ## Table of Contents
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Running Tests](#running-tests)
-- [Test Cases](#test-cases)
-- [Project Structure](#project-structure)
+- [Introduction](#introduction)
+- [Test Plan](#test-plan)
+- [Detailed Test Cases](#detailed-test-cases)
+- [Automation Test Cases](#automation-test-cases)
+- [Technologies Used](#technologies-used)
+- [Setup Instructions for the Automation Tests](#setup-instructions-for-the-automation-tests)
+- [How to Run All Tests](#how-to-run-all-tests)
+- [How to Run UI Tests](#how-to-run-ui-tests)
+- [How to Run API Tests](#how-to-run-api-tests)
+- [Reporting](#reporting)
+- [Assumptions, improvements and comments](#assumptions-improvements-and-comments)
 
-## Prerequisites
-- Java Development Kit (JDK) 21
-- Maven
-- Internet connection for downloading dependencies
+## Introduction
+This project focuses on testing the CRUD (Create, Read, Update, Delete) operations on Trello boards. The objective is to create comprehensive test cases covering both positive and negative scenarios, devise a test plan, and automate selected test cases for both the front-end and back-end.
 
-## Installation
+## Test Plan
 
-1. Clone the repository:
+The test plan outlines the testing strategy and areas to be tested at both the back-end and front-end.
 
-```bash
-git clone https://github.com/yourusername/trello-board-crud.git
-cd trello-board-crud
-```
+### Back-End Testing
+- Ensure API endpoints for CRUD operations are functioning correctly.
+- Confirm proper authentication and authorization mechanisms.
+- Validate response to check if the operation has been done successfully.
 
-2. Install dependencies:
+### Front-End Testing
+- Ensure that the Trello board operations such as creating, deleting, and updating boards function correctly through the user interface.
+- Verifies that the UI elements for these operations are displayed properly, interact as expected, and provide appropriate feedback to the user.
+- Validate proper input handling and error messages.
 
-```bash
-mvn clean install
+## Detailed Test Cases
+ - **Create a Board**
+ - Test Case 1: Create Board with Valid Name
+ - Test Case 2: Create Board with Empty Name
+ - Test Case 3: Create Board without Authentication
+ 
+ - **Read a Board**
+ - Test Case 1: Retrieve Board with Valid ID
+ - Test Case 2: Retrieve Board with Invalid ID
+ - Test Case 3: Retrieve Board without Authentication
+ 
+ - **Update a Board**
+ - Test Case 1: Update Board Name
+ - Test Case 2: Update Board with Invalid ID
+ - Test Case 3: Update Board without Authentication
+
+ - **Delete a Board**
+ - Test Case 1: Delete Board with Valid ID
+ - Test Case 2: Delete Board with Invalid ID
+ - Test Case 3: Delete Board without Authentication
+ 
+ **UI Test Steps:**
+   
+##### Create Board - Positive scenario
+   
+ - 1. Login to Trello.
+ - 2. Click on the "Create New Board" button.
+ - 3. Enter a valid board name and select a background color.
+Click "Create Board". **Expected Result**: The new board should appear on the dashboard with the specified name and background color.
+
+##### Create Board - Negative scenario
+
+ - 1. Login to Trello.
+ - 2. Click on the "Create New Board" button.
+ - 3. Leave the board name field empty..
+Click "Create Board". **Expected Result**: Board should not be created with an empty name. A message should be displayed indicating that the board name cannot be empty.
+
+##### View Board - Positive scenario
+   
+ - 1. Login to Trello.
+ - 2. Open an existing board.
+ - 3. Verify the board's name, background color, lists, and cards.
+   **Expected Result**: The board details should match the saved configuration..
+
+##### View Board - Negative scenario
+
+ - 1. Login to Trello.
+ - 2. Attempt to open a board with an invalid ID.
+   **Expected Result**: An error message should be displayed, indicating that the board does not exist.
+
+##### Update Board - Positive scenario
+   
+ - 1. Login to Trello.
+ - 2. Open an existing board. 
+ - 3. Click on the board name and edit it. Save the changes.
+   **Expected Result**: The board name should be updated and displayed correctly.
+
+##### Update Board - Negative scenario
+
+  - 1. Login to Trello.
+  - 2. Open an existing board. 
+  - 3. Attempt to change the board name to an empty string. Save the changes.
+   **Expected Result**: The board cannot be saved with an empty name.
+
+##### Delete Board - Positive scenario
+   
+ - 1. Login to Trello.
+ - 2. Click on "Show Menu" and select "More" > "Close Board".
+ - 3. Confirm the deletion.
+   **Expected Result**: The board should be removed from the dashboard.
+ 
+ **API Test Steps:**
+
+##### Create Board - Positive scenario
+- **Description:** Create a board with a valid name and optional description.
+- **Steps:**
+  1. Send a POST request to the Trello API endpoint to create a board with api credentials.
+  2. Include a valid name in the request payload.
+- **Expected Result:** The board is created successfully, and a valid response containing the board's details is returned.
+
+##### Create Board - Negative scenario
+- **Description:** Create a board with a valid name and optional description.
+- **Steps:**
+  1. Send a POST request to the Trello API endpoint to create a board without including a name.
+  **Expected Result:** The request fails, and an error message is returned indicating that the name is required.
+
+##### Retrieve Board - Positive scenario
+- **Description:** Retrieve a board using a valid board ID.
+- **Steps:**
+  1. Send a GET request to the Trello API endpoint with a valid board ID and api credentials.
+- **Expected Result:** The board details are returned successfully.
+
+##### Retrieve Board - Negative scenario
+- **Description:** Retrieve a board using a invalid board ID.
+- **Steps:**
+  1. Send a GET request to the Trello API endpoint with a invalid board ID.
+- **Expected Result:** The request fails, and an error message is returned indicating that the board was not found.
+
+##### Update Board - Positive scenario
+- **Description:** Update the name of an existing board.
+- **Steps:**
+  1. Send a PUT request to the Trello API endpoint with the board ID and new name.
+- **Expected Result:** The board's name is updated successfully, and the updated board details are returned.
+
+##### Update Board - Negative scenario
+- **Description:** Update the name of an existing board with an invalid board ID.
+- **Steps:**
+  1. Send a PUT request with an invalid board ID.
+- **Expected Result:** The request fails, and an error message is returned indicating that the board was not found.
+
+##### Delete Board - Positive scenario
+- **Description:** Delete a board using a valid board ID.
+- **Steps:**
+  1. Send a DELETE request to the Trello API endpoint with the board ID.
+- **Expected Result:** The board is deleted successfully, and a confirmation response is returned.
+
+##### Delete Board - Negative scenario
+- **Description:** Delete a board using a valid board ID.
+- **Steps:**
+  1. Send a DELETE request to the Trello API endpoint with an invalid board ID.
+- **Expected Result:** The request fails, and an error message is returned indicating that the board was not found.
+
+Please refer [Atlassian Trello API Documentation - Actions](https://developer.atlassian.com/cloud/trello/rest/api-group-actions/#api-group-actions)
+for the endpoints.
+
+## Automation Test Cases
+The above CRUD operations on Trello boards have been automated for both UI and API, ensuring comprehensive coverage of create, read, update, and delete functionalities.
+
+##Technologies Used
+ - Selenium: For UI automation
+ - POSTMAN: For checking the API Endpoints
+ - RestAssured - For API automation
+ - Cucumber BDD JUnit - Framework
+ - Maven - Build
+
+## Setup Instructions for the Automation Tests
+
+ **Prerequisites**
+ 
+ - JDK (Version 21.0.4)
+ - Maven (Version 3.9.8)
+ - Cucumber Eclipse Plugin (Version 1.0.0.202106240526)
+ - Selenium (Version 3.141.59)
+ - RestAssured (Version 4.4.0)
+ - IDE (I have used Eclipse)
+ 
+ **Ensure that the necessary dependencies are included in your build file.**
+ 
+ **Setup Instructions**
+ - Clone the repository
+ - Open the root directory on cmd
+ - If you want to run all tests
+ 
+ ```bash
+mvn test
  ```
 
-## Running Tests
+## How to Run All Tests
 
-### Running All Tests
-
-To run all tests, use the following command:
-
-```bash
+ - Through maven
+ 
+ ```bash
 mvn test
-````
+ ```
+ - TestRunner.java (run as JUnit Test)
 
-### To run specific test scenarios, configure your Cucumber options or use tags:
+## How to Run UI Tests
 
-```bash
-mvn test -Dcucumber.options="--tags @tagname"
-````
+  - TestRunnerUI.java (run as JUnit Test)
 
-##Test Cases
+## How to Run API Tests
 
-### Overview
+  - TestRunnerAPI.java (run as JUnit Test)
+  
+## Reporting
 
-This document outlines the test cases for CRUD (Create, Read, Update, Delete) operations on a Trello board. The test cases cover both positive and negative scenarios for the Trello user interface (UI) and API.
+  - The test reports are stored in the `target` folder as `index.html`. To view the reports, open the `index.html` file in a web browser.  
+  
+## Assumptions, improvements and comments  
 
-## 1. Create Operations
-
-### Positive Test Cases
-
-#### A) Create a New Board
-
-**Description:** Verify that a new board can be successfully created.  
-**Steps:**
-1. Login to Trello.
-2. Click on the "Create New Board" button.
-3. Enter a valid board name and select a background color.
-4. Click "Create Board".
-**Expected Result:** The new board should appear on the dashboard with the specified name and background color.
-
-### Negative Test Cases
-
-#### B) Create a Board with Empty Name
-
-**Description:** Verify that the user cannot create a board with an empty name.  
-**Steps:**
-1. Login to Trello.
-2. Click on the "Create New Board" button.
-3. Leave the board name field empty.
-4. Click "Create Board".
-**Expected Result:** Board should not be created with an empty name. A message should be displayed indicating that the board name cannot be empty.
-
----
-
-## 2. Read Operations
-
-### Positive Test Cases
-
-#### A) View Board Details
-
-**Description:** Verify that board details (e.g., name, lists, cards) are correctly displayed.  
-**Steps:**
-1. Login to Trello.
-2. Open an existing board.
-3. Verify the board's name, background color, lists, and cards.
-**Expected Result:** The board details should match the saved configuration.
-
-### Negative Test Cases
-
-#### B) Try to View a Non-Existent Board
-
-**Description:** Verify that the user cannot view a non-existent board.  
-**Steps:**
-1. Login to Trello.
-2. Attempt to open a board with an invalid or deleted ID.
-**Expected Result:** An error message should be displayed, indicating that the board does not exist.
-
----
-
-## 3. Update Operations
-
-### Positive Test Cases
-
-#### A) Update Board Name
-
-**Description:** Verify that the board name can be updated successfully.  
-**Steps:**
-1. Login to Trello.
-2. Open an existing board.
-3. Click on the board name and edit it.
-4. Save the changes.
-**Expected Result:** The board name should be updated and displayed correctly.
-
-### Negative Test Cases
-
-#### B) Update Board Name to Empty String
-
-**Description:** Verify that the user cannot update the board name to an empty string.  
-**Steps:**
-1. Login to Trello.
-2. Open an existing board.
-3. Attempt to change the board name to an empty string.
-4. Save the changes.
-**Expected Result:** The board cannot be saved with an empty name.
-
----
-
-## 4. Delete Operations
-
-### Positive Test Cases
-
-#### A) Delete a Board
-
-**Description:** Verify that a board can be successfully deleted.  
-**Steps:**
-1. Login to Trello.
-2. Open an existing board.
-3. Click on "Show Menu" and select "More" > "Close Board".
-4. Confirm the deletion.
-**Expected Result:** The board should be removed from the dashboard.
-
----
-
-## API Test Cases
-
-### Positive Test Cases
-
-#### 1. Create a Board
-
-**Description:** Create a board with a valid name and optional description.  
-**Steps:**
-1. Send a POST request to the Trello API endpoint to create a board.
-2. Include a valid name in the request payload.
-**Expected Result:** The board is created successfully, and a valid response containing the board's details is returned.
-
-#### 2. Retrieve a Board
-
-**Description:** Retrieve a board using a valid board ID.  
-**Steps:**
-1. Send a GET request to the Trello API endpoint with a valid board ID.
-**Expected Result:** The board details are returned successfully.
-
-#### 3. Update a Board
-
-**Description:** Update the name of an existing board.  
-**Steps:**
-1. Send a PUT request to the Trello API endpoint with the board ID and new name.
-**Expected Result:** The board's name is updated successfully, and the updated board details are returned.
-
-#### 4. Delete a Board
-
-**Description:** Delete a board using a valid board ID.  
-**Steps:**
-1. Send a DELETE request to the Trello API endpoint with the board ID.
-**Expected Result:** The board is deleted successfully, and a confirmation response is returned.
-
-### Negative Test Cases
-
-#### 1. Create Board with Empty Name
-
-**Description:** Attempt to create a board without providing a name.  
-**Steps:**
-1. Send a POST request without including a name.
-**Expected Result:** The request fails, and an error message is returned indicating that the name is required.
-
-#### 2. Retrieve Board with Invalid ID
-
-**Description:** Attempt to retrieve a board using an invalid board ID.  
-**Steps:**
-1. Send a GET request with an invalid board ID.
-**Expected Result:** The request fails, and an error message is returned indicating that the board was not found.
-
-#### 3. Retrieve Board without Authentication
-
-**Description:** Attempt to retrieve a board without providing authentication credentials.  
-**Steps:**
-1. Send a GET request without authentication tokens.
-**Expected Result:** The request fails, and an error message is returned indicating that authentication is required.
-
-#### 4. Update Board with Invalid ID
-
-**Description:** Attempt to update a board using an invalid board ID.  
-**Steps:**
-1. Send a PUT request with an invalid board ID.
-**Expected Result:** The request fails, and an error message is returned indicating that the board was not found.
-
-#### 5. Delete Board with Invalid ID
-
-**Description:** Attempt to delete a board using an invalid board ID.  
-**Steps:**
-1. Send a DELETE request with an invalid board ID.
-**Expected Result:** The request fails, and an error message is returned indicating that the board was not found.
-
-#### 6. Delete Board without Authentication
-
-**Description:** Attempt to delete a board without providing authentication credentials.  
-**Steps:**
-1. Send a DELETE request without authentication tokens.
-**Expected Result:** The request fails, and an error message is returned indicating that authentication is required.
-
----
-
-## Project Structure
-
-```markdown
-
-TrelloBoard [TrelloBoard master]
-├── JRE System Library [JavaSE-1.8]
-├── Maven Dependencies
-├── src
-│   ├── main
-│   │   ├── java
-│   │   │   ├── api
-│   │   │   │   └── TrelloApiClient.java
-│   │   │   ├── pages
-│   │   │   │   ├── BoardPage.java
-│   │   │   │   ├── DashboardPage.java
-│   │   │   │   ├── HomePage.java
-│   │   │   │   └── LoginPage.java
-│   │   │   ├── resources
-│   │   │   │   └── config.properties
-│   │   │   └── utilities
-│   │   │       ├── ConfigReader.java
-│   │   │       └── WaitHelper.java
-│   ├── test
-│   │   ├── java
-│   │   │   ├── features
-│   │   │   │   ├── TrelloCRUDAPI.feature
-│   │   │   │   └── TrelloCRUDUI.feature
-│   │   │   ├── runners
-│   │   │   │   ├── TestRunner.java
-│   │   │   │   ├── TestRunnerAPI.java
-│   │   │   │   └── TestRunnerUI.java
-│   │   │   └── stepDefinitions
-│   │   │       ├── TrelloAPISteps.java
-│   │   │       └── TrelloUISteps.java
-├── JUnit 4
-├── Drivers
-│   └── chromedriver.exe
-├── src
-├── target
-├── pom.xml
-└── README.md
-
-
-
-
-
+  - Tests have been run on Windows using Chrome, for running the tests on Linux, ensure that the appropriate WebDriver for Chrome is installed and configured.
+  - Before each test Trello Board is created and then after execution it is removed (for both API and Selenium tests).
+  - I assumed that my Trello account on which tests are executed is hermetic environment. This means that in the meantime no one is using it nor creating there boards. Such actions might impact tests results.
+  - Please note that I have a Trello Premium free trial and that is valid for 9 more days from today(22-07).
+  - I have pulled images for hub(selenium standalone) and node(chrome) and tried to docker-compose yaml file, however when I attempted to run the tests on docker I got SessionNotCreated exception. This could be due to version incompatibilities. I intend to spend more time on time and fix the issue.

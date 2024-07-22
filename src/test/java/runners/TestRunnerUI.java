@@ -7,7 +7,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    features = "src/test/java/Features/TrelloCRUDUI.feature",
+    features = "src/test/java/features/TrelloCRUDUI.feature",
     glue = {"stepDefinitions"},
     monochrome=true,
     plugin = {"pretty", "html:target/index.html"},

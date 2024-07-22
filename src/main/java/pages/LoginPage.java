@@ -3,14 +3,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utilities.WaitHelper;
-
-import pages.DashboardPage;
 
 public class LoginPage {
 	private WebDriver driver;
@@ -61,6 +54,7 @@ public class LoginPage {
         }
     
     public void clickLogout(){
+    	waithelper.WaitForElement(userProfileLink, 10);
     	driver.findElement(userProfileLink).click();
     	waithelper.WaitForElement(logoutLink, 30);
     	driver.findElement(logoutLink).click();
