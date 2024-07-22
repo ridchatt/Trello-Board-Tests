@@ -206,7 +206,7 @@ mvn test
   
 ## Reporting
 
-  - The test reports are stored in the `target` folder as `index.html`. To view the reports, open the `index.html` file in a web browser.  
+  - The test reports are stored in the target folder, typically as HTML files (e.g., index.html). Please note that the target folder is generated during the build process, including when you run tests from an IDE or command line. To view the test reports, navigate to the target directory and open the index.html file in a web browser.  
   
 ## Assumptions, improvements and comments  
 
