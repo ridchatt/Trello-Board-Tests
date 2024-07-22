@@ -215,4 +215,4 @@ mvn test
   - Before each test Trello Board is created and then after execution it is removed (for UI Selenium tests).
   - I assumed that my Trello account on which tests are executed is hermetic environment. This means that in the meantime no one is using it nor creating there boards. Such actions might impact tests results.
   - Please note that I have a Trello Premium free trial and that is valid for 9 more days from today(22-07).
-  - I have pulled images for hub(selenium standalone) and node(chrome) and tried to docker-compose yaml file, however when I attempted to run the tests on docker I got SessionNotCreated exception. This could be due to version incompatibilities. I intend to spend more time on time and fix the issue.
+  - I have pulled images for hub(selenium standalone) and node(chrome) and then did docker-compose yaml file, however when I attempted to run the tests on docker I got SessionNotCreated exception. This could be due to version incompatibilities.
