@@ -206,10 +206,11 @@ mvn test
   
 ## Reporting
 
-  - The test reports are stored in the target folder, typically as HTML files (e.g., index.html). Please note that the target folder is generated during the build process, including when you run tests from an IDE or command line. To view the test reports, navigate to the target directory and open the index.html file in a web browser.  
-  
-## Assumptions, improvements and comments  
+  - The test reports are stored in the target folder, typically as HTML files (e.g., index.html). Please note that the target folder is generated during the build process, including when you run tests from an IDE or command line. To view the test reports, navigate to the target directory and open the index.html file in a web browser.
+  - Report screenshot in the target folder after I ran the tests
+![ReportResults](https://github.com/user-attachments/assets/dd6623b8-e4ba-43d7-bbf2-d5be449699b4)
 
+## Assumptions, improvements and comments  
   - Tests have been run on Windows using Chrome, for running the tests on Linux, ensure that the appropriate WebDriver for Chrome is installed and configured.
   - Before each test Trello Board is created and then after execution it is removed (for both API and Selenium tests).
   - I assumed that my Trello account on which tests are executed is hermetic environment. This means that in the meantime no one is using it nor creating there boards. Such actions might impact tests results.
