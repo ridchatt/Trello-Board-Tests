@@ -158,7 +158,7 @@ for the endpoints.
 ## Automation Test Cases
 The above CRUD operations on Trello boards have been automated for both UI and API, ensuring comprehensive coverage of create, read, update, and delete functionalities.
 
-##Technologies Used
+## Technologies Used
  - Selenium: For UI automation
  - POSTMAN: For checking the API Endpoints
  - RestAssured - For API automation
